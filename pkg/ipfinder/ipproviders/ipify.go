@@ -2,7 +2,6 @@ package ipproviders
 
 import (
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -18,19 +17,19 @@ func GetIpProviderIpify() IpProvider {
 	}
 }
 
-func getIpFromIpify() string {
+func getIpFromIpify() (string, error) {
 	resp, err := http.Get("https://api.ipify.org")
 
 	if err != nil {
-		log.Println(err)
+		return "", err
 	}
 
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Println(err)
+		return "", err
 	}
 
-	return string(body)
+	return string(body), nil
 }
