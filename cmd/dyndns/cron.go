@@ -2,7 +2,6 @@ package main
 
 import (
 	"dyndns-cloudflare/pkg/ipfinder"
-	"fmt"
 	"github.com/robfig/cron"
 	"log"
 )
@@ -39,8 +38,5 @@ func RunCronJobs(clientApi *ipfinder.ApiClient) {
 
 	c.Start()
 
-	_, err = fmt.Scanln()
-	if err != nil {
-		log.Fatal(err)
-	}
+	select {}
 }
