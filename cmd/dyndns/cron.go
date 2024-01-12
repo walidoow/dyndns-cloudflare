@@ -26,8 +26,11 @@ func run(clientApi *ipfinder.ApiClient) {
 func RunCronJobs(clientApi *ipfinder.ApiClient) {
 	c := cron.New()
 
-	var err error = nil
+	var err error
 	cachedDNSProviderIp, err = updater.DNSRecordIp()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	err = c.AddFunc("@every 1s", func() { run(clientApi) })
 	if err != nil {
