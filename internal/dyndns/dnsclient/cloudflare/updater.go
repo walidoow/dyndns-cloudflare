@@ -83,13 +83,13 @@ func (receiver DNSUpdater) DNSRecordIp() (string, error) {
 		return "", err
 	}
 
-	data := make(map[string]map[string]string)
-	err = json.Unmarshal(body, &data)
+	var response ApiGetRecordResponse
+	err = json.Unmarshal(body, &response)
 	if err != nil {
 		return "", err
 	}
 
-	var result = data["result"]["content"]
+	var result = response.Result.Content
 
 	return result, nil
 }
