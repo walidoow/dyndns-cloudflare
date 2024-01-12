@@ -2,7 +2,6 @@ package ipproviders
 
 import (
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -18,19 +17,19 @@ func GetIpProviderIcanhazip() IpProvider {
 	}
 }
 
-func getIpFromIcanhazip() string {
+func getIpFromIcanhazip() (string, error) {
 	resp, err := http.Get("https://icanhazip.com/")
 
 	if err != nil {
-		log.Println(err)
+		return "", err
 	}
 
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 
 	if err != nil {
-		log.Println(err)
+		return "", err
 	}
 
-	return string(body[0:15]) // Exclude last byte which is a new line character
+	return string(body[0:15]), nil // Exclude last byte which is a new line character
 }

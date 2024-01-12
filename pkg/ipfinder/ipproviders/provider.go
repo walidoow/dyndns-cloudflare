@@ -1,5 +1,6 @@
 package ipproviders
 
+// IpProviders is a slice of all the available IP providers
 var IpProviders = []IpProvider{
 	GetIpProviderIpify(),
 	GetIpProviderIpapi(),
@@ -7,9 +8,8 @@ var IpProviders = []IpProvider{
 	GetIpProviderBigdatacloud(),
 }
 
+// RateLimitType is an enum that represents the type of rate limit
 type RateLimitType int
-
-type GetIp func() string
 
 const (
 	SECOND_RATE_LIMIT = 0
@@ -20,6 +20,10 @@ const (
 	MONTH_RATE_LIMIT  = 5
 )
 
+// GetIp is a function that returns the current IP
+type GetIp func() (string, error)
+
+// IpProvider is a struct that contains all the information needed to get the current IP from a provider
 type IpProvider struct {
 	Name          string
 	ApiUrl        string
@@ -28,4 +32,5 @@ type IpProvider struct {
 	RateLimit     uint
 	FuncGetIp     GetIp
 	IsEnabled     bool
+	LastUsage     int64
 }

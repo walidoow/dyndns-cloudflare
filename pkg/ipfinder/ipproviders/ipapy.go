@@ -2,9 +2,7 @@ package ipproviders
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -20,25 +18,25 @@ func GetIpProviderIpapi() IpProvider {
 	}
 }
 
-func getIpFromIpapi() string {
+func getIpFromIpapi() (string, error) {
 	resp, err := http.Get("https://ipapi.co/json/")
 
 	if err != nil {
-		fmt.Println(err)
+		return "", err
 	}
 
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 
 	if err != nil {
-		fmt.Println(err)
+		return "", err
 	}
 
 	var data map[string]interface{}
 	err = json.Unmarshal(body, &data)
 	if err != nil {
-		log.Println(err)
+		return "", err
 	}
 
-	return data["ip"].(string)
+	return data["ip"].(string), nil
 }

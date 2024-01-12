@@ -1,0 +1,35 @@
+name: Create Release on Tag Push
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+
+jobs:
+  tagged-release:
+    name: "Tagged Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Build
+        run: |
+          GOOS=windows GOARCH=amd64 go build -v -o dyndns-windows-amd64.exe ./cmd/dyndns/
+          GOOS=linux GOARCH=amd64 go build -v -o dyndns-linux-amd64 ./cmd/dyndns/
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        if: ${{ !env.ACT }}
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            README.md
+            dyndns-windows-amd64.exe
+            dyndns-linux-amd64.exe

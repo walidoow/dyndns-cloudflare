@@ -9,7 +9,10 @@ import (
 
 func run(clientApi *ipfinder.ApiClient) {
 	currentIp := clientApi.GetCurrentIp()
-	updater.Update(currentIp)
+	_, err := updater.Update(currentIp)
+	if err != nil {
+		return
+	}
 }
 
 func RunCronJobs(clientApi *ipfinder.ApiClient) {

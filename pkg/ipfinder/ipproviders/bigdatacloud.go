@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -20,7 +19,7 @@ func GetIpProviderBigdatacloud() IpProvider {
 	}
 }
 
-func getIpFromBigdatacloud() string {
+func getIpFromBigdatacloud() (string, error) {
 	resp, err := http.Get("https://api-bdc.net/data/client-ip")
 
 	if err != nil {
@@ -31,14 +30,14 @@ func getIpFromBigdatacloud() string {
 	body, err := io.ReadAll(resp.Body)
 
 	if err != nil {
-		fmt.Println(err)
+		return "", err
 	}
 
 	var data map[string]interface{}
 	err = json.Unmarshal(body, &data)
 	if err != nil {
-		log.Println(err)
+		return "", err
 	}
 
-	return data["ipString"].(string)
+	return data["ipString"].(string), nil
 }
