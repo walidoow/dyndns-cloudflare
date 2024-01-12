@@ -20,8 +20,8 @@ type DNSRecordConfig struct {
 }
 
 func (receiver DNSRecordConfig) Payload(content string) ([]byte, error) {
-	record := DNSRecord{Content: content, Name: receiver.DNSRecord.Name, Proxied: receiver.DNSRecord.Proxied,
-		Type: receiver.DNSRecord.Type, Comment: receiver.DNSRecord.Comment, Tag: receiver.DNSRecord.Tag,
+	record := DNSRecordPayload{Content: content, Name: receiver.DNSRecord.Name, Proxied: receiver.DNSRecord.Proxied,
+		Type: receiver.DNSRecord.Type, Comment: receiver.DNSRecord.Comment, Tags: receiver.DNSRecord.Tag,
 		Ttl: receiver.DNSRecord.Ttl}
 	return json.Marshal(record)
 }
