@@ -1,5 +1,5 @@
 # DynDNS-Cloudflare
-
+[![Go build and test](https://github.com/walidoow/dyndns-cloudflare/actions/workflows/golang-build.yml/badge.svg)](https://github.com/walidoow/dyndns-cloudflare/actions/workflows/golang-build.yml) [![Create Release on Tag Push](https://github.com/walidoow/dyndns-cloudflare/actions/workflows/create-release.yml/badge.svg)](https://github.com/walidoow/dyndns-cloudflare/actions/workflows/create-release.yml)
 ## Overview
 
 DynDNS-Cloudflare is a dynamic DNS update tool designed to work with Cloudflare's API. This tool helps in automatically

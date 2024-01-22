@@ -10,9 +10,9 @@ func GetIpProviderIpapi() IpProvider {
 	return IpProvider{
 		Name:          "Ipapi",
 		ApiUrl:        "https://ipapi.co/json/",
-		IsRateLimited: false,
-		RateLimitType: SECOND_RATE_LIMIT,
-		RateLimit:     0,
+		IsRateLimited: true,
+		RateLimitType: MONTH_RATE_LIMIT,
+		RateLimit:     1000,
 		FuncGetIp:     getIpFromIpapi,
 		IsEnabled:     true,
 	}

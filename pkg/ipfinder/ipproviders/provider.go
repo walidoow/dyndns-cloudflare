@@ -12,12 +12,12 @@ var IpProviders = []IpProvider{
 type RateLimitType int
 
 const (
-	SECOND_RATE_LIMIT = 0
-	MINUTE_RATE_LIMIT = 1
-	HOUR_RATE_LIMIT   = 2
-	DAY_RATE_LIMIT    = 3
-	WEEK_RATE_LIMIT   = 4
-	MONTH_RATE_LIMIT  = 5
+	SECOND_RATE_LIMIT = 1
+	MINUTE_RATE_LIMIT = 60 * SECOND_RATE_LIMIT
+	HOUR_RATE_LIMIT   = 60 * MINUTE_RATE_LIMIT
+	DAY_RATE_LIMIT    = 24 * HOUR_RATE_LIMIT
+	WEEK_RATE_LIMIT   = 7 * DAY_RATE_LIMIT
+	MONTH_RATE_LIMIT  = 30 * DAY_RATE_LIMIT
 )
 
 // GetIp is a function that returns the current IP
@@ -30,6 +30,7 @@ type IpProvider struct {
 	IsRateLimited bool
 	RateLimitType RateLimitType
 	RateLimit     uint
+	PeriodSizeSec float32
 	FuncGetIp     GetIp
 	IsEnabled     bool
 	LastUsage     int64
