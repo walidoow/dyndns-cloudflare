@@ -27,7 +27,6 @@ func New() *ApiClient {
 
 // GetCurrentIp returns the current IP from the next available IP Provider
 func (ac *ApiClient) GetCurrentIp() string {
-	// TODO: Add error return to the function
 	currentIpProvider, err := selectNextAvailableIpProvider(ac)
 	if err != nil {
 		return "" // TODO: handle error
